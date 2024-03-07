@@ -22,11 +22,11 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build # This command may vary based on your project setup
+        run: node app.js # This command may vary based on your project setu
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # This is the branch where GitHub Pages will be deployed
-          FOLDER: dist # Replace 'dist' with the folder containing your built files
+          FOLDER: public  # Replace 'dist' with the folder containing your built files
