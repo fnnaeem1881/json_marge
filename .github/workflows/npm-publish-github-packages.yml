@@ -1,4 +1,4 @@
-name: Node.js Workflow
+name: Node.js CI
 
 on:
   push:
@@ -10,16 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Run Node.js File
-      run: node app.js
+      - name: Build
+        run: npm run build # This command may vary based on your project setup
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # This is the branch where GitHub Pages will be deployed
+          FOLDER: dist # Replace 'dist' with the folder containing your built files
